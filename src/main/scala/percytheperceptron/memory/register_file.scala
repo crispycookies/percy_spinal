@@ -7,8 +7,8 @@ class register_file(address_bit_width : Int, bit_width : Int, row_count : Int, s
   val io = new Bundle {
     val address = in UInt(address_bit_width bits)
     val write_ena_user = in UInt(1 bits)
-    val read = in Vec(UInt(bit_width bits), sub_cell_count)
-    val store = out Vec(UInt(bit_width bits), sub_cell_count)
+    val read = out Vec(UInt(bit_width bits), sub_cell_count)
+    val store = in Vec(UInt(bit_width bits), sub_cell_count)
   }
   val file = new file(bit_width = bit_width, row_count = row_count,sub_cell_count = sub_cell_count)
   val controller = new controller(bit_width = bit_width, row_count = row_count,sub_cell_count = sub_cell_count, address_bit_width = address_bit_width)
