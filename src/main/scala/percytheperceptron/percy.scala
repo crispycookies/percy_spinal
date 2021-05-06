@@ -1,7 +1,7 @@
 package percytheperceptron
 
 import percytheperceptron.memory.register_file
-import percytheperceptron.ml.node
+import percytheperceptron.ml.{node, perceptron}
 import spinal.core._
 
 class percy(test: Int) extends Component {
@@ -15,6 +15,6 @@ class percy(test: Int) extends Component {
 // This is the main function that generates the VHDL and the Verilog corresponding to MyTopLevel.
 object PercyMain {
   def main(args: Array[String]) {
-    SpinalVerilog(new node(bit_width = 16))
+    SpinalVerilog(new perceptron(bit_width = 16, nodes = 4))
   }
 }
