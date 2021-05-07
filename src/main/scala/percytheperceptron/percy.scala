@@ -2,6 +2,7 @@ package percytheperceptron
 
 import percytheperceptron.memory.register_file
 import percytheperceptron.ml.perceptron.perceptron
+import percytheperceptron.ml.trainer.util.error
 import spinal.core._
 
 class percy(test: Int) extends Component {
@@ -15,6 +16,6 @@ class percy(test: Int) extends Component {
 // This is the main function that generates the VHDL and the Verilog corresponding to MyTopLevel.
 object PercyMain {
   def main(args: Array[String]) {
-    SpinalVerilog(new perceptron(bit_width = 16, nodes = 4))
+    SpinalVerilog(new error(bit_width = 16, feature_count = 4))
   }
 }
