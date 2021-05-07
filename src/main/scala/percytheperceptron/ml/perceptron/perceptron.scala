@@ -1,5 +1,6 @@
-package percytheperceptron.ml
+package percytheperceptron.ml.perceptron
 
+import percytheperceptron.ml.perceptron.util.node
 import spinal.core._
 
 

@@ -1,8 +1,6 @@
-package percytheperceptron.memory
+package percytheperceptron.memory.util
 
 import spinal.core._
-import spinal.core.internals.Operator
-import spinal.lib._
 
 class controller(address_bit_width : Int, bit_width : Int, row_count : Int, sub_cell_count : Int) extends Component{
   val io = new Bundle {

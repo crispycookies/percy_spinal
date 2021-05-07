@@ -1,4 +1,4 @@
-package percytheperceptron.ml
+package percytheperceptron.ml.perceptron.util
 
 import spinal.core._
 
@@ -6,10 +6,10 @@ import scala.language.postfixOps
 
 class node(bit_width : Int) extends Component {
   val io = new Bundle {
-    val value = in UInt(bit_width bits)
-    val weight = in UInt(bit_width bits)
-    val out_product = out UInt (bit_width bits)
-    val overflow = out UInt(1 bits)
+    val value: UInt = in UInt(bit_width bits)
+    val weight: UInt = in UInt(bit_width bits)
+    val out_product: UInt = out UInt (bit_width bits)
+    val overflow: UInt = out UInt(1 bits)
   }
   val register_value: UInt = RegNext(io.value) init(0)
   val register_weight: UInt = RegNext(io.weight) init(0)

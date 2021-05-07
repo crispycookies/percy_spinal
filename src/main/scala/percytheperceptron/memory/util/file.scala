@@ -1,4 +1,4 @@
-package percytheperceptron.memory
+package percytheperceptron.memory.util
 
 import spinal.core._
 

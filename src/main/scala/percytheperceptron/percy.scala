@@ -1,7 +1,7 @@
 package percytheperceptron
 
 import percytheperceptron.memory.register_file
-import percytheperceptron.ml.{node, perceptron}
+import percytheperceptron.ml.perceptron.perceptron
 import spinal.core._
 
 class percy(test: Int) extends Component {

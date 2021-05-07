@@ -1,5 +1,6 @@
 package percytheperceptron.memory
 
+import percytheperceptron.memory.util.{controller, file}
 import spinal.core._
 import spinal.lib._
 
