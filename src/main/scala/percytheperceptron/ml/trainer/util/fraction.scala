@@ -8,7 +8,7 @@ class fraction(bit_width: Int, feature_count: Int) extends Component {
     val features: Vec[UInt] = in Vec(UInt(bit_width bits), feature_count)
     val weights: Vec[UInt] = in Vec(UInt(bit_width bits), feature_count)
     val eta: UInt= in UInt(bit_width bits)
-    val fraction: Vec[UInt] = out Vec(UInt(bit_width bits), feature_count)
+    val fraction: UInt = out UInt(bit_width bits)
   }
   val num = new numerator(bit_width: Int, feature_count: Int)
   val den = new denominator(bit_width: Int, feature_count: Int)
@@ -22,9 +22,6 @@ class fraction(bit_width: Int, feature_count: Int) extends Component {
   // denominator
   den.io.features := io.features
 
-  for(i <- 0 until feature_count) {
-    frac(i) := num.io.numerator(i) / den.io.denominator
-  }
-  io.fraction := frac
+  io.fraction := num.io.numerator / den.io.denominator
 }
 

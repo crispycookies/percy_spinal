@@ -11,15 +11,19 @@ class right_expression(bit_width: Int, feature_count: Int) extends Component {
     val r_expression: Vec[UInt] = out Vec(UInt(bit_width bits), feature_count)
   }
   val frac = new fraction(bit_width = bit_width, feature_count = feature_count)
-  val fractional_value: Vec[UInt] = Vec(UInt(bit_width bits), feature_count)
+  val fractional_value: Vec[UInt] = Vec(UInt(2*bit_width bits), feature_count)
+  val fractional_value_truncd: Vec[UInt] = Vec(UInt(bit_width bits), feature_count)
 
   frac.io.features := io.features
   frac.io.weights := io.weights
   frac.io.eta := io.eta
 
   for (i <- 0 until feature_count) {
-    fractional_value(i) := frac.io.fraction(i) * io.features(i)
+    fractional_value(i) := frac.io.fraction * io.features(i)
   }
-  io.r_expression := fractional_value
+  for (i <- 0 until feature_count) {
+    fractional_value_truncd(i) := fractional_value(i)(bit_width-1 downto 0)
+  }
+  io.r_expression := fractional_value_truncd
 }
 
