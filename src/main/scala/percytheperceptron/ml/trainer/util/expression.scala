@@ -10,7 +10,7 @@ class expression(bit_width: Int, feature_count: Int) extends Component {
     val eta: UInt= in UInt(bit_width bits)
     val r_expression: Vec[UInt] = out Vec(UInt(bit_width bits), feature_count)
   }
-  val r_expression = new right_expression()
+  //val r_expression = new right_expression()
 
 }
 
