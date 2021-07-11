@@ -35,15 +35,18 @@ class trainer(bit_width: Int, feature_count: Int) extends Component {
   weight_mul_instance.io.a := io.current_data
   weight_mul_instance.io.b := update
 
-  val muled: UInt = UInt(bit_width bits)
-  muled := weight_mul_instance.io.y
+
+
+
+  val multiplied: Vec[UInt] = Vec(UInt(bit_width bits), feature_count)
+  //multiplied := weight_mul_instance.io.y
 
   // for each weight: (old) weight + muled
   val weight_add_instance = new vector_add(bit_width = bit_width, feature_count = feature_count)
   weight_mul_instance.io.a := io.current_weights
-  weight_mul_instance.io.b := muled
+  weight_mul_instance.io.b := multiplied
 
-  val new_weights = Vec(UInt(bit_width bits), feature_count)
+  val new_weights: Vec[UInt] = Vec(UInt(bit_width bits), feature_count)
   new_weights := weight_mul_instance.io.y
 
   // write back
