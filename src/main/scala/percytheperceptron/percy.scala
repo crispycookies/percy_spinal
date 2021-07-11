@@ -4,7 +4,7 @@ import percytheperceptron.memory.register_file
 import percytheperceptron.ml.perceptron.perceptron
 import percytheperceptron.ml.perceptron.util.{activation, perceptron_core}
 import percytheperceptron.ml.trainer.trainer
-import percytheperceptron.ml.trainer.util.{error, expression}
+import percytheperceptron.ml.trainer.util.error
 import spinal.core._
 
 class percy(test: Int) extends Component {
