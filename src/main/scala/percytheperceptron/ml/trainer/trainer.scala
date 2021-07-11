@@ -6,7 +6,7 @@ import spinal.core._
 
 class trainer(bit_width: Int, feature_count: Int) extends Component {
   val io = new Bundle {
-    val bias: UInt = in UInt(bit_width bits)
+    val bias: UInt = out UInt(bit_width bits)
     val current_weights: Vec[UInt] = in Vec(UInt(bit_width bits), feature_count)
     val new_weigths: Vec[UInt] = out Vec(UInt(bit_width bits), feature_count)
     val current_data = in Vec(UInt(bit_width bits), feature_count)
@@ -39,15 +39,15 @@ class trainer(bit_width: Int, feature_count: Int) extends Component {
 
 
   val multiplied: Vec[UInt] = Vec(UInt(bit_width bits), feature_count)
-  //multiplied := weight_mul_instance.io.y
+  multiplied := weight_mul_instance.io.y
 
   // for each weight: (old) weight + muled
   val weight_add_instance = new vector_add(bit_width = bit_width, feature_count = feature_count)
-  weight_mul_instance.io.a := io.current_weights
-  weight_mul_instance.io.b := multiplied
+  weight_add_instance.io.a := io.current_weights
+  weight_add_instance.io.b := multiplied
 
   val new_weights: Vec[UInt] = Vec(UInt(bit_width bits), feature_count)
-  new_weights := weight_mul_instance.io.y
+  new_weights := weight_add_instance.io.y
 
   // write back
   io.bias := update

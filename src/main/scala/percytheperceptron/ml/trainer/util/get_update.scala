@@ -4,8 +4,8 @@ import spinal.core._
 
 class get_update(bit_width: Int) extends Component {
   val io = new Bundle {
-    val eta, actual, predicted = in UInt (8 bits)
-    val y = out UInt (8 bits)
+    val eta, actual, predicted = in UInt (bit_width bits)
+    val y = out UInt (bit_width bits)
   }
   val error: UInt = UInt(bit_width bits)
   error := io.actual - io.predicted
