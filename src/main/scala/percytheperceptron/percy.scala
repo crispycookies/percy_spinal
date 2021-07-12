@@ -4,7 +4,7 @@ import percytheperceptron.memory.register_file
 import percytheperceptron.ml.perceptron.perceptron
 import percytheperceptron.ml.perceptron.util.{activation, perceptron_core}
 import percytheperceptron.ml.trainer.trainer
-import percytheperceptron.ml.trainer.util.error
+import percytheperceptron.ml.trainer.util.get_update
 import spinal.core._
 
 // This is the main function that generates the VHDL and the Verilog corresponding to MyTopLevel.

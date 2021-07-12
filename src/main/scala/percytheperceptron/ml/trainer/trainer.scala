@@ -16,7 +16,6 @@ class trainer(bit_width: Int, feature_count: Int) extends Component {
   }
   // error = actual - predicted
   // update = eta * error
-  /*
   val update_instance = new get_update(bit_width = bit_width)
   update_instance.io.actual := io.actual
   update_instance.io.predicted := io.predicted
@@ -53,7 +52,5 @@ class trainer(bit_width: Int, feature_count: Int) extends Component {
   // write back
   io.bias := update
   io.new_weigths := new_weights
-
-   */
 }
 
