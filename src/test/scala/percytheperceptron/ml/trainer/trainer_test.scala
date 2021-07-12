@@ -59,7 +59,7 @@ object DutTests {
       assert(dut.io.new_weigths(2).toInt == 111)
       assert(dut.io.new_weigths(3).toInt == 47)
     }
-    trainer.doSim("Test A-trainer") { dut =>
+    trainer.doSim("Test B-trainer") { dut =>
       dut.io.current_weights(0) #= 55
       dut.io.current_weights(1) #= -15
       dut.io.current_weights(2) #= 111
