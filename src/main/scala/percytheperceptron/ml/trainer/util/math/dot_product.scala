@@ -5,12 +5,12 @@ import spinal.lib._
 
 class dot_product(bit_width: Int, feature_count: Int) extends Component {
   val io = new Bundle {
-    val a: Vec[UInt] = in Vec(UInt(bit_width bits), feature_count)
-    val b: Vec[UInt] = in Vec(UInt(bit_width bits), feature_count)
-    val res = out UInt(bit_width bits)
+    val a: Vec[SInt] = in Vec(SInt(bit_width bits), feature_count)
+    val b: Vec[SInt] = in Vec(SInt(bit_width bits), feature_count)
+    val res = out SInt(bit_width bits)
   }
-  val dot_products: Vec[UInt] = Vec(UInt(bit_width*2 bits), feature_count)
-  val dot_products_truncd: Vec[UInt] = Vec(UInt(bit_width bits), feature_count)
+  val dot_products: Vec[SInt] = Vec(SInt(bit_width*2 bits), feature_count)
+  val dot_products_truncd: Vec[SInt] = Vec(SInt(bit_width bits), feature_count)
 
   for (i <- 0 until feature_count) {
     dot_products(i) := io.a(i) * io.b(i)

@@ -9,6 +9,7 @@ object DutTests {
     val core = SimConfig.withWave.compile(new perceptron_core(bit_width = 16, feature_count = 4/*, lower_bound = 100, upper_bound = 200, zero = 150*/))
     core.doSim("Test A-core"){ dut =>
       dut.clockDomain.forkStimulus(10)
+
       dut.io.bias #= 100
       dut.io.values(0) #= 5
       dut.io.values(1) #= 10
