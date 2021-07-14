@@ -3,7 +3,7 @@ package percytheperceptron
 import percytheperceptron.memory.register_file
 import percytheperceptron.ml.perceptron.{perceptron, perceptron_with_reg}
 import percytheperceptron.ml.perceptron.util.{activation, perceptron_core}
-import percytheperceptron.ml.trainer.{trainer, trainer_with_percy}
+import percytheperceptron.ml.trainer.trainer
 import percytheperceptron.ml.trainer.util.get_update
 import spinal.core._
 
