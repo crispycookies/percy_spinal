@@ -8,8 +8,6 @@ object DutTests {
   def main(args: Array[String]): Unit = {
     val core = SimConfig.withWave.compile(new perceptron_core(bit_width = 16, feature_count = 4/*, lower_bound = 100, upper_bound = 200, zero = 150*/))
     core.doSim("Test A-core"){ dut =>
-      dut.clockDomain.forkStimulus(10)
-
       dut.io.bias #= 100
       dut.io.values(0) #= 5
       dut.io.values(1) #= 10
@@ -21,11 +19,10 @@ object DutTests {
       dut.io.weights(2) #= 2
       dut.io.weights(3) #= 1
 
-      dut.clockDomain.waitSampling()
-      dut.clockDomain.waitSampling()
+      sleep(1)
       assert(dut.io.out_data.toInt == 192)
     }
-    val percy = SimConfig.withWave.compile(new perceptron(bit_width = 16, feature_count = 4, lower_bound = 1, upper_bound = 2, zero = 150))
+    val percy = SimConfig.withWave.compile(new perceptron_with_reg(bit_width = 16, feature_count = 4, lower_bound = 1, upper_bound = 2, zero = 150))
     percy.doSim("Test A-percy"){ dut =>
       dut.clockDomain.forkStimulus(10)
       dut.io.bias #= 100
@@ -46,7 +43,6 @@ object DutTests {
     }
 
     core.doSim("Test B-core"){ dut =>
-      dut.clockDomain.forkStimulus(10)
       dut.io.bias #= 1
       dut.io.values(0) #= 5
       dut.io.values(1) #= 10
@@ -58,8 +54,7 @@ object DutTests {
       dut.io.weights(2) #= 2
       dut.io.weights(3) #= 1
 
-      dut.clockDomain.waitSampling()
-      dut.clockDomain.waitSampling()
+      sleep(1)
       assert(dut.io.out_data.toInt == 93)
     }
 

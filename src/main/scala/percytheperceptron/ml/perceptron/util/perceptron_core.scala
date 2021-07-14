@@ -10,7 +10,8 @@ class perceptron_core(bit_width: Int, feature_count: Int) extends Component {
     val values: Vec[SInt] = in Vec(SInt(bit_width bits), feature_count)
     val out_data: SInt = out SInt(bit_width bits)
   }
-  val delay_sync_bias: SInt = RegNext(io.bias) init(0)
+  val delay_sync_bias  = SInt(bit_width bits)
+  delay_sync_bias := io.bias
 
   val nodes_entities: Array[node] = Array.fill(feature_count)(new node(bit_width=bit_width))
   val nodes_result: Vec[SInt] = Vec(SInt(bit_width bits), feature_count)
