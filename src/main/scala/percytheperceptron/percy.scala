@@ -12,5 +12,6 @@ object PercyMain {
   def main(args: Array[String]) {
     //SpinalVerilog(new trainer_with_percy(bit_width = 16, feature_count = 4, lower_bound = -1, upper_bound = 1, zero = 0))
     SpinalVhdl(new perceptron(bit_width = 16, feature_count = 4, lower_bound = -1, upper_bound = 1, zero = 0))
+    SpinalVhdl(new history_table(bit_width = 16, feature_count = 4))
   }
 }
