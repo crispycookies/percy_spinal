@@ -7,7 +7,7 @@ import spinal.lib._
 
 class weight_table(bit_width: Int, feature_count: Int, table_size : Int, address_bit_width : Int) extends Component {
   val io = new Bundle {
-    val address = in UInt(bit_width bits)
+    val address = in UInt(address_bit_width bits)
     val weights_in: Vec[SInt] = in Vec(SInt(bit_width bits), feature_count)
     val weights_out: Vec[SInt] = out Vec(SInt(bit_width bits), feature_count)
   }

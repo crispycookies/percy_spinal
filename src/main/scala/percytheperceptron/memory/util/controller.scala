@@ -29,9 +29,9 @@ class controller(address_bit_width : Int, bit_width : Int, row_count : Int, sub_
     }
   }
   when(address <= row_count){
-    when(io.write_ena_user === 0) {
+    //when(io.write_ena_user === 0) {
       io.read := io.features_from_store(address)
-    }
+    //}
   }
 }
 
