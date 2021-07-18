@@ -8,7 +8,7 @@ class perceptron_with_reg(bit_width: Int, feature_count: Int, lower_bound: Int, 
     val bias: SInt = in SInt(bit_width bits)
     val weights: Vec[SInt] = in Vec(SInt(bit_width bits), feature_count)
     val values: Vec[SInt] = in Vec(SInt(bit_width bits), feature_count)
-    val prediction: SInt = out SInt(3 bits)
+    val prediction: SInt = out SInt(bit_width bits)
   }
 
   val bias = RegNext(io.bias)
