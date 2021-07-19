@@ -16,14 +16,27 @@ class predictor(bit_width: Int, feature_count: Int, table_size : Int, address_bi
   val table = new weight_table(bit_width = bit_width, feature_count = feature_count, table_size = table_size, address_bit_width = index_bit_width)
   val trainer_perceptron = new trainer(bit_width = bit_width, feature_count = feature_count)
 
+  val delayed_prediction = RegNext(predictor_perceptron.io.prediction) init(0)
+
   // History Wiring
   // Store History
   history.io.taken := io.taken
   // Give trainer the History for training
   trainer_perceptron.io.current_data := history.io.history
 
+  // Index
+  indexer.io.address := io.address
+  table.io.address := indexer.io.index
 
+  // Table
+  table.io.weights_in := trainer_perceptron.new_weights
+  predictor_perceptron.io.weights := table.io.weights_out
 
-
+  // Trainer
+  trainer_perceptron.io.current_data := history.io.history
+  trainer_perceptron.io.eta := 1
+  //trainer_perceptron.io.actual := io.taken
+  // taken is delayed by at last 1 cycle, hence delay prediction as well
+  trainer_perceptron.io.predicted := delayed_prediction
 }
 

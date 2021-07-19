@@ -58,6 +58,7 @@ object WeightDutTests {
       dut.io.weights_in(0) #= 1
       dut.io.weights_in(1) #= 2
       dut.io.weights_in(2) #= 3
+      dut.io.bias_in #= 100
 
       //dut.io.taken #= 1
       dut.clockDomain.waitSampling()
@@ -67,24 +68,26 @@ object WeightDutTests {
       assert(dut.io.weights_out(0).toInt == 1)
       assert(dut.io.weights_out(1).toInt == 2)
       assert(dut.io.weights_out(2).toInt == 3)
+      assert(dut.io.bias_out.toInt == 100)
 
       dut.clockDomain.waitSampling()
       dut.clockDomain.waitSampling()
       dut.io.weights_in(0) #= 4
       dut.io.weights_in(1) #= 5
       dut.io.weights_in(2) #= 6
+      dut.io.bias_in #= 7
 
-      println(dut.io.weights_out(0).toInt)
-      println(dut.io.weights_out(1).toInt)
-      println(dut.io.weights_out(2).toInt)
       //dut.io.taken #= 0
       dut.clockDomain.waitSampling()
       dut.clockDomain.waitSampling()
       assert(dut.io.weights_out(0).toInt == 4)
       assert(dut.io.weights_out(1).toInt == 5)
       assert(dut.io.weights_out(2).toInt == 6)
+      assert(dut.io.bias_out.toInt == 7)
+
       dut.clockDomain.waitSampling()
       dut.clockDomain.waitSampling()
+      dut.io.bias_in #= 100
       dut.io.weights_in(0) #= 9
       dut.io.weights_in(1) #= 19
       dut.io.weights_in(2) #= 29
@@ -108,6 +111,7 @@ object WeightDutTests {
       assert(dut.io.weights_out(0).toInt == 4)
       assert(dut.io.weights_out(1).toInt == 5)
       assert(dut.io.weights_out(2).toInt == 6)
+      assert(dut.io.bias_out.toInt == 7)
 
 
       //dut.io.taken #= 1
