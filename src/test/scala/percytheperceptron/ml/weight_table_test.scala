@@ -179,6 +179,7 @@ object WeightDutTests {
       assert(dut.io.weights_out(0).toInt == 4)
       assert(dut.io.weights_out(1).toInt == 5)
       assert(dut.io.weights_out(2).toInt == 6)
+      assert(dut.io.bias_out.toInt == 7)
       dut.clockDomain.waitSampling()
       dut.clockDomain.waitSampling()
 
