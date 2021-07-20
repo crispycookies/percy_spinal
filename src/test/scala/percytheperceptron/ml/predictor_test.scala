@@ -34,6 +34,19 @@ object PredictorTests {
       dut.io.taken #= 0
       dut.clockDomain.waitSampling()
       dut.clockDomain.waitSampling()
+      dut.io.taken #= 1
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      dut.io.address #= 1
+      dut.io.taken #= 0
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      dut.io.taken #= 1
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      dut.io.taken #= 0
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
       dut.clockDomain.waitSampling()
       dut.clockDomain.waitSampling()
       dut.clockDomain.waitSampling()
