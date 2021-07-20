@@ -8,7 +8,7 @@ class predictor(bit_width: Int, feature_count: Int, table_size : Int, address_bi
   val io = new Bundle {
     val taken = in UInt(1 bits)
     val prediction = out UInt(1 bits)
-    val address = out UInt(1 bits)
+    val address = in UInt(address_bit_width bits)
   }
   def map_to_value(taken : UInt): SInt ={
     val scaled = SInt(bit_width bits)
@@ -53,12 +53,12 @@ class predictor(bit_width: Int, feature_count: Int, table_size : Int, address_bi
 
   // Table
   table.io.bias_in := trainer_perceptron.io.bias
-  table.io.weights_in := trainer_perceptron.new_weights
+  table.io.weights_in := trainer_perceptron.io.new_weigths
   predictor_perceptron.io.weights := table.io.weights_out
+  trainer_perceptron.io.current_weights := table.io.weights_out
   predictor_perceptron.io.bias := table.io.bias_out
 
   // Trainer
-  trainer_perceptron.io.current_data := history.io.history
   trainer_perceptron.io.eta := 1
   trainer_perceptron.io.actual := map_to_value(io.taken)
   // taken is delayed by at last 1 cycle, hence delay prediction as well
