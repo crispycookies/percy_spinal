@@ -10,7 +10,7 @@ import spinal.core.sim._
 object WeightDutTests {
   def main(args: Array[String]): Unit = {
     val subcell = SimConfig.withWave.compile(new cell(bit_width = 16, 3))
-    subcell.doSim("Subcell A-core"){ dut =>
+    subcell.doSim("Subcell A-core") { dut =>
       dut.clockDomain.forkStimulus(10)
       dut.io.write_ena #= 1
 
@@ -39,8 +39,8 @@ object WeightDutTests {
     }
 
     val controller = SimConfig.withWave.compile(new controller(address_bit_width = 3, bit_width = 16, row_count = 2, sub_cell_count = 2))
-    controller.doSim("Subcell A-core"){ dut =>
-      dut.io.address #= 0
+    controller.doSim("Subcell A-core") { dut =>
+      dut.io.address_write #= 0
       dut.io.write_ena_user #= 1
 
       sleep(10)
@@ -51,10 +51,11 @@ object WeightDutTests {
 
 
     val core = SimConfig.withWave.compile(new weight_table(bit_width = 16, feature_count = 3, 3, 3))
-    core.doSim("Test A-core"){ dut =>
+    core.doSim("Test A-core") { dut =>
       dut.clockDomain.forkStimulus(10)
 
-      dut.io.address #= 0
+      dut.io.address_write #= 0
+      dut.io.address_read #= 0
       dut.io.weights_in(0) #= 1
       dut.io.weights_in(1) #= 2
       dut.io.weights_in(2) #= 3
@@ -91,7 +92,8 @@ object WeightDutTests {
       dut.io.weights_in(0) #= 9
       dut.io.weights_in(1) #= 19
       dut.io.weights_in(2) #= 29
-      dut.io.address #= 2
+      dut.io.address_write #= 2
+      dut.io.address_read #= 2
 
       dut.clockDomain.waitSampling()
       dut.clockDomain.waitSampling()
@@ -100,7 +102,99 @@ object WeightDutTests {
       assert(dut.io.weights_out(2).toInt == 29)
       dut.clockDomain.waitSampling()
       dut.clockDomain.waitSampling()
-      dut.io.address #= 0
+      dut.io.address_write #= 0
+      dut.io.address_read #= 0
+      dut.io.weights_in(0) #= 0
+      dut.io.weights_in(1) #= 0
+      dut.io.weights_in(2) #= 0
+
+
+      sleep(1)
+
+      assert(dut.io.weights_out(0).toInt == 4)
+      assert(dut.io.weights_out(1).toInt == 5)
+      assert(dut.io.weights_out(2).toInt == 6)
+      assert(dut.io.bias_out.toInt == 7)
+
+
+      //dut.io.taken #= 1
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      //dut.io.taken #= 0
+      dut.clockDomain.waitSampling()
+    }
+    core.doSim("Test B-core") { dut =>
+      dut.clockDomain.forkStimulus(10)
+
+      dut.io.address_write #= 0
+      dut.io.address_read #= 1
+      dut.io.weights_in(0) #= 1
+      dut.io.weights_in(1) #= 2
+      dut.io.weights_in(2) #= 3
+      dut.io.bias_in #= 100
+
+      //dut.io.taken #= 1
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      assert(dut.io.weights_out(0).toInt == 0)
+      assert(dut.io.weights_out(1).toInt == 0)
+      assert(dut.io.weights_out(2).toInt == 0)
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      dut.io.address_read #= 0
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+
+      assert(dut.io.weights_out(0).toInt == 1)
+      assert(dut.io.weights_out(1).toInt == 2)
+      assert(dut.io.weights_out(2).toInt == 3)
+      assert(dut.io.bias_out.toInt == 100)
+
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      dut.io.weights_in(0) #= 4
+      dut.io.weights_in(1) #= 5
+      dut.io.weights_in(2) #= 6
+      dut.io.bias_in #= 7
+
+      //dut.io.taken #= 0
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      assert(dut.io.weights_out(0).toInt == 4)
+      assert(dut.io.weights_out(1).toInt == 5)
+      assert(dut.io.weights_out(2).toInt == 6)
+      assert(dut.io.bias_out.toInt == 7)
+
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      dut.io.bias_in #= 100
+      dut.io.weights_in(0) #= 9
+      dut.io.weights_in(1) #= 19
+      dut.io.weights_in(2) #= 29
+      dut.io.address_write #= 2
+      dut.io.address_read #= 0
+
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      assert(dut.io.weights_out(0).toInt == 4)
+      assert(dut.io.weights_out(1).toInt == 5)
+      assert(dut.io.weights_out(2).toInt == 6)
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+
+      dut.io.address_read #= 2
+
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+
+      assert(dut.io.weights_out(0).toInt == 9)
+      assert(dut.io.weights_out(1).toInt == 19)
+      assert(dut.io.weights_out(2).toInt == 29)
+
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      dut.io.address_write #= 0
+      dut.io.address_read #= 0
       dut.io.weights_in(0) #= 0
       dut.io.weights_in(1) #= 0
       dut.io.weights_in(2) #= 0

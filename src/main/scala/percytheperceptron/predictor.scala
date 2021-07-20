@@ -49,7 +49,9 @@ class predictor(bit_width: Int, feature_count: Int, table_size : Int, address_bi
 
   // Index
   indexer.io.address := io.address
-  table.io.address := indexer.io.index
+  // TODO
+  table.io.address_write := indexer.io.index
+  table.io.address_read := indexer.io.index
 
   // Table
   table.io.bias_in := trainer_perceptron.io.bias
