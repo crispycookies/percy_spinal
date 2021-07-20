@@ -9,22 +9,22 @@ object PredictorTests {
     val core = SimConfig.withWave.compile(new predictor(bit_width = 16, feature_count = 3, table_size = 2, address_bit_width = 16, index_bit_width = 16, -1,1,0))
     core.doSim("Check Wiring"){ dut =>
       dut.clockDomain.forkStimulus(10)
-      dut.io.address #= 1
+      dut.io.address #= 0
       dut.io.taken #= 1
       println(dut.io.prediction.toInt)
       dut.clockDomain.waitSampling()
       dut.clockDomain.waitSampling()
-      dut.io.address #= 1
+      dut.io.address #= 0
       dut.io.taken #= 0
       println(dut.io.prediction.toInt)
       dut.clockDomain.waitSampling()
       dut.clockDomain.waitSampling()
-      dut.io.address #= 1
+      dut.io.address #= 0
       dut.io.taken #= 0
       println(dut.io.prediction.toInt)
       dut.clockDomain.waitSampling()
       dut.clockDomain.waitSampling()
-      dut.io.address #= 1
+      dut.io.address #= 0
       dut.io.taken #= 1
       println(dut.io.prediction.toInt)
       dut.clockDomain.waitSampling()
