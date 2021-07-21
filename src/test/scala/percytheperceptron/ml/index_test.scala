@@ -55,6 +55,37 @@ object ModDutTests {
       dut.clockDomain.waitSampling()
       assert(dut.io.index_write.toInt == 3)
     }
+    val core_reg2 = SimConfig.withWave.compile(new mod_read_write_index(address_bit_width = 16, index_bit_width = 16, table_size = 4, 2))
+    core_reg2.doSim("Test RW Index 2"){ dut =>
+      dut.clockDomain.forkStimulus(10)
+      dut.io.address #= 2
+      sleep(1)
+      assert(dut.io.index_read.toInt == 2)
+      assert(dut.io.index_write.toInt == 0)
+
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      assert(dut.io.index_read.toInt == 2)
+      assert(dut.io.index_write.toInt == 0)
+
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      dut.io.address #= 5
+      sleep(1)
+      assert(dut.io.index_read.toInt == 1)
+      assert(dut.io.index_write.toInt == 2)
+
+      dut.io.address #= 39
+      sleep(1)
+      assert(dut.io.index_read.toInt == 3)
+      sleep(1)
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      assert(dut.io.index_write.toInt == 2)
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      assert(dut.io.index_write.toInt == 3)
+    }
   }
 }
 
