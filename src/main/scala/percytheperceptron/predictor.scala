@@ -33,7 +33,7 @@ class predictor(bit_width: Int, feature_count: Int, table_size : Int, address_bi
     scaled
   }
 
-  val indexer = new mod_read_write_index(address_bit_width = address_bit_width, index_bit_width = index_bit_width, table_size = table_size, delay = 1)
+  val indexer = new mod_read_write_index(address_bit_width = address_bit_width, index_bit_width = index_bit_width, table_size = table_size, delay = delay)
   val predictor_perceptron = new perceptron(bit_width = bit_width, feature_count = feature_count, lower_bound = lower_bound, upper_bound = upper_bound, zero = zero);
   val history = new history_table(bit_width = bit_width, feature_count = feature_count)
   val table = new weight_table(bit_width = bit_width, feature_count = feature_count, table_size = table_size, address_bit_width = index_bit_width)
@@ -41,7 +41,6 @@ class predictor(bit_width: Int, feature_count: Int, table_size : Int, address_bi
 
   val delayed_prediction = new shift_register(bit_width = bit_width, depth = delay)
   delayed_prediction.io.input := predictor_perceptron.io.prediction
-  //val delayed_prediction = RegNext(predictor_perceptron.io.prediction) init(0)
 
   // History Wiring
   // Store History
