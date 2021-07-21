@@ -4,7 +4,7 @@ import percytheperceptron.ml.perceptron.perceptron
 import percytheperceptron.ml.trainer.trainer
 import spinal.core._
 
-class predictor(bit_width: Int, feature_count: Int, table_size : Int, address_bit_width : Int, index_bit_width : Int, lower_bound: Int, upper_bound : Int, zero : Int) extends Component {
+class predictor(bit_width: Int, feature_count: Int, table_size : Int, address_bit_width : Int, index_bit_width : Int, lower_bound: Int, upper_bound : Int, zero : Int, delay : Int) extends Component {
   val io = new Bundle {
     val taken = in UInt(1 bits)
     val prediction = out UInt(1 bits)

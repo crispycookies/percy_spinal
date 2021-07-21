@@ -6,7 +6,7 @@ import spinal.core.sim._
 
 object PredictorTests {
   def main(args: Array[String]): Unit = {
-    val core = SimConfig.withWave.compile(new predictor(bit_width = 16, feature_count = 3, table_size = 2, address_bit_width = 16, index_bit_width = 16, -1,1,0))
+    val core = SimConfig.withWave.compile(new predictor(bit_width = 16, feature_count = 3, table_size = 2, address_bit_width = 16, index_bit_width = 16, -1,1,0,1))
     core.doSim("Check Wiring"){ dut =>
       dut.clockDomain.forkStimulus(10)
       dut.io.address #= 0
