@@ -67,6 +67,36 @@ object ShiftRegisterDutTests {
       dut.clockDomain.waitSampling()
       dut.clockDomain.waitSampling()
       dut.io.input #= 0
+      assert(dut.io.output.toInt == 0)
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      assert(dut.io.output.toInt == 10)
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      assert(dut.io.output.toInt == 20)
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      assert(dut.io.output.toInt == 0)
+    }
+    val test4 = SimConfig.withWave.compile(new shift_register(bit_width = 16, 4))
+    test4.doSim("Test") { dut =>
+      dut.clockDomain.forkStimulus(10)
+      dut.io.input #= 10
+      sleep(10)
+      assert(dut.io.output.toInt == 0)
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      dut.io.input #= 20
+      assert(dut.io.output.toInt == 0)
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      dut.io.input #= 0
+      assert(dut.io.output.toInt == 0)
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
+      assert(dut.io.output.toInt == 0)
+      dut.clockDomain.waitSampling()
+      dut.clockDomain.waitSampling()
       assert(dut.io.output.toInt == 10)
       dut.clockDomain.waitSampling()
       dut.clockDomain.waitSampling()

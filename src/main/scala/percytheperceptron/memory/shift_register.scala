@@ -13,13 +13,13 @@ class shift_register(bit_width : Int, depth : Int) extends Component {
     register := io.input
     io.output := register
   } else {
-    val register = Vec(Reg(SInt(bit_width bits)) init(0), depth)
+    val register = Vec(Reg(SInt(bit_width bits)) init(0), depth + 1)
     register(0) := io.input
 
-    for (i <- 1 until depth) {
+    for (i <- 1 until depth + 1) {
       register(i) := register(i-1)
     }
-    io.output := register(depth-1)
+    io.output := register(depth)
   }
 }
 
