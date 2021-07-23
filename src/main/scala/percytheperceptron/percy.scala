@@ -3,7 +3,7 @@ package percytheperceptron
 import percytheperceptron.memory.{register_file, shift_register}
 import percytheperceptron.ml.perceptron.{perceptron, perceptron_with_reg}
 import percytheperceptron.ml.perceptron.util.{activation, perceptron_core}
-import percytheperceptron.ml.trainer.trainer
+import percytheperceptron.ml.trainer.{jimenez_trainer, trainer}
 import percytheperceptron.ml.trainer.util.get_update
 import spinal.core._
 
@@ -14,5 +14,6 @@ object PercyMain {
     SpinalVhdl(new perceptron(bit_width = 16, feature_count = 4, lower_bound = -1, upper_bound = 1, zero = 0))
     SpinalVhdl(new mod_index(address_bit_width = 16, index_bit_width = 4, 4))
     SpinalVhdl(new shift_register( 4, 1))
+    SpinalVhdl(new jimenez_trainer( 8, 2, 127))
   }
 }
