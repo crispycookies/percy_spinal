@@ -15,5 +15,6 @@ object PercyMain {
     SpinalVhdl(new mod_index(address_bit_width = 16, index_bit_width = 4, 4))
     SpinalVhdl(new shift_register( 4, 1))
     SpinalVhdl(new jimenez_trainer( 8, 2, 127))
+    SpinalVhdl(new predictor_jimenez( 16, 4, 4, 4, 4, -1, 1, 0, 3, 128))
   }
 }
