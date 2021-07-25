@@ -1,12 +1,10 @@
-package percytheperceptron.ml
+package percytheperceptron.ml.trainer
 
-import percytheperceptron.ml.trainer.jimenez_trainer
-import spinal.sim._
 import spinal.core.sim._
 
-object JimenezDutTests {
+object EicherDutTests {
   def main(args: Array[String]): Unit = {
-    val core = SimConfig.withWave.compile(new jimenez_trainer(16, 4, 127))
+    val core = SimConfig.withWave.compile(new eicher_trainer(16, 4, 127))
     core.doSim("Test Normal") { dut =>
       dut.io.predicted #= -1
       dut.io.predicted_numerical #= 102

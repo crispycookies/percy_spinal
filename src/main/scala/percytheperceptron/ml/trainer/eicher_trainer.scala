@@ -20,7 +20,7 @@ class eicher_trainer(bit_width: Int, feature_count: Int, threshold: Int) extends
       io.bias_new := io.bias_old - 1
     }
   } otherwise {
-    when(io.bias_old > threshold) {
+    when(io.bias_old >= threshold) {
       io.bias_new := threshold
     } otherwise {
       io.bias_new := -threshold
