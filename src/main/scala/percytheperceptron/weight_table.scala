@@ -1,9 +1,7 @@
 package percytheperceptron
 
 import percytheperceptron.memory.register_file
-import percytheperceptron.ml.perceptron.perceptron
 import spinal.core._
-import spinal.lib._
 
 class weight_table(bit_width: Int, feature_count: Int, table_size : Int, address_bit_width : Int) extends Component {
   val io = new Bundle {

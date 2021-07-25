@@ -1,10 +1,8 @@
 package percytheperceptron
 
-import percytheperceptron.memory.{register_file, shift_register}
-import percytheperceptron.ml.perceptron.{perceptron, perceptron_with_reg}
-import percytheperceptron.ml.perceptron.util.{activation, perceptron_core}
-import percytheperceptron.ml.trainer.{jimenez_trainer, trainer}
-import percytheperceptron.ml.trainer.util.get_update
+import percytheperceptron.memory.shift_register
+import percytheperceptron.ml.perceptron.perceptron
+import percytheperceptron.ml.trainer.jimenez_trainer
 import spinal.core._
 
 // This is the main function that generates the VHDL and the Verilog corresponding to MyTopLevel.

@@ -1,9 +1,7 @@
 package percytheperceptron
 
-import spinal.core._
-import spinal.lib._
-
 import percytheperceptron.memory.shift_register
+import spinal.core._
 
 class mod_read_write_index(address_bit_width : Int, index_bit_width : Int, table_size : Int, delay : Int) extends Component {
   val io = new Bundle {

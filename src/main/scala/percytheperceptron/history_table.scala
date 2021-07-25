@@ -1,7 +1,6 @@
 package percytheperceptron
 
 import spinal.core._
-import spinal.lib._
 
 class history_table(bit_width: Int, feature_count: Int) extends Component {
   val io = new Bundle {

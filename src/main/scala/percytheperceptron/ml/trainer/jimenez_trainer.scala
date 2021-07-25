@@ -1,7 +1,6 @@
 package percytheperceptron.ml.trainer
 
 import spinal.core._
-import spinal.lib._
 
 class jimenez_trainer(bit_width: Int, feature_count: Int, threshold : Int) extends Component {
   val io = new Bundle {
